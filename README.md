@@ -21,6 +21,22 @@ This project implements a sophisticated computer vision pipeline that:
 - **Interactive UI**: Streamlit web interface with manual keypoint adjustment
 - **Batch Processing**: Process multiple bird pairs efficiently
 
+## Quick Start - Deploy to Streamlit Cloud
+
+1. **Push to GitHub** (if not already done):
+   ```bash
+   git remote add origin https://github.com/YOUR_USERNAME/PigeonPhoto_Automator.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+2. **Deploy to Streamlit Cloud**:
+   - Go to [share.streamlit.io](https://share.streamlit.io)
+   - Sign in with GitHub
+   - Click "New app" → Select your repository → Deploy!
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions.
+
 ## Installation
 
 ### Prerequisites
