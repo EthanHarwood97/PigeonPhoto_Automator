@@ -1,10 +1,10 @@
 # PigeonPhoto_Automator - Requirements
-# Python 3.9+
+# Python 3.9-3.11 (3.13 may have compatibility issues with some packages)
 
 # Core Computer Vision
 # Use opencv-python-headless for server deployments (no GUI dependencies)
-opencv-python-headless>=4.8.0
-numpy>=1.24.0
+opencv-python-headless>=4.8.0,<5.0.0
+numpy>=1.24.0,<2.0.0
 scikit-image>=0.21.0
 
 # Segmentation

@@ -4,16 +4,31 @@ Provides UI for batch upload, review, and manual keypoint adjustment.
 """
 
 import streamlit as st
-import cv2
+import sys
+import os
+
+# Try importing cv2 with better error handling
+try:
+    import cv2
+except ImportError as e:
+    st.error(f"Failed to import OpenCV: {e}")
+    st.error("This usually means opencv-python-headless is not installed correctly.")
+    st.error("Please check that requirements.txt includes 'opencv-python-headless>=4.8.0'")
+    st.stop()
+
 import numpy as np
 from pathlib import Path
 import tempfile
-import os
 from typing import Dict, Tuple, Optional
 
-from src.pipeline import PigeonPipeline
-from src.keypoints import KeypointDetector, visualize_keypoints
-import src.config as config
+try:
+    from src.pipeline import PigeonPipeline
+    from src.keypoints import KeypointDetector, visualize_keypoints
+    import src.config as config
+except ImportError as e:
+    st.error(f"Failed to import project modules: {e}")
+    st.error("Please ensure all dependencies are installed.")
+    st.stop()
 
 # Page configuration
 st.set_page_config(
