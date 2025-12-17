@@ -59,6 +59,9 @@ models/*.h5
 Thumbs.db
 desktop.ini
 
+# GitHub Desktop nested folder (if created)
+PigeonPhoto_Automator/
+
 # Output files
 output/
 results/
