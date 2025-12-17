@@ -9,11 +9,11 @@ from typing import Dict, Tuple, Optional
 from pathlib import Path
 
 import src.config as config
-from src.segmentation import segment_bird, extract_head_region, extract_feet_region
+from src.segmentation import segment_bird
 from src.keypoints import KeypointDetector
 from src.geometry import (
     calculate_head_rotation_angle, rotate_head_rigid, translate_feet,
-    tps_warp_body, generate_feet_shadow
+    tps_warp_body, generate_feet_shadow, extract_head_region, extract_feet_region
 )
 from src.harmonization import (
     match_exposure_gamma, blend_head_to_body, apply_color_grading
