@@ -13,8 +13,11 @@ os.environ['QT_QPA_PLATFORM'] = 'offscreen'
 # Prevent OpenGL from being loaded
 os.environ['OPENCV_IO_ENABLE_OPENGL'] = '0'
 # Force headless mode
-if 'DISPLAY' not in os.environ:
-    os.environ['DISPLAY'] = ':0'  # Dummy display for headless
+# For headless environments, do NOT set DISPLAY to ':0' as it causes X server connection attempts
+# The QT_QPA_PLATFORM='offscreen' setting above is sufficient for headless mode.
+# Leave DISPLAY unset or empty for truly headless operation.
+if 'DISPLAY' in os.environ and os.environ['DISPLAY'] == ':0':
+    os.environ['DISPLAY'] = ''  # Override problematic ':0' setting
 
 # Try importing cv2 with better error handling
 try:
