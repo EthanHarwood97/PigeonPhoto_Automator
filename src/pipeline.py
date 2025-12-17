@@ -216,4 +216,3 @@ class PigeonPipeline:
                        [cv2.IMWRITE_JPEG_QUALITY, config.OUTPUT_QUALITY])
         else:
             cv2.imwrite(str(output_path), image)
-
