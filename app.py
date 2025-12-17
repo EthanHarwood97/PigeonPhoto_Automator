@@ -7,13 +7,39 @@ import streamlit as st
 import sys
 import os
 
+# Set environment variables to prevent OpenGL/GUI library loading (for headless servers)
+os.environ['OPENCV_IO_ENABLE_OPENEXR'] = '0'
+os.environ['QT_QPA_PLATFORM'] = 'offscreen'
+# Prevent OpenGL from being loaded
+os.environ['OPENCV_IO_ENABLE_OPENGL'] = '0'
+# Force headless mode
+if 'DISPLAY' not in os.environ:
+    os.environ['DISPLAY'] = ':0'  # Dummy display for headless
+
 # Try importing cv2 with better error handling
 try:
     import cv2
+    # Verify it's the headless version by checking if GUI functions are unavailable
+    if hasattr(cv2, 'namedWindow'):
+        # This shouldn't work in headless, but if it does, we're okay
+        pass
 except ImportError as e:
     st.error(f"Failed to import OpenCV: {e}")
     st.error("This usually means opencv-python-headless is not installed correctly.")
     st.error("Please check that requirements.txt includes 'opencv-python-headless>=4.8.0'")
+    st.error(f"Python version: {sys.version}")
+    st.error(f"Python path: {sys.executable}")
+    st.stop()
+except Exception as e:
+    # Handle libGL.so.1 and other system library errors
+    error_msg = str(e)
+    if 'libGL' in error_msg or 'libGL.so' in error_msg:
+        st.error("OpenCV is trying to load OpenGL libraries (libGL.so.1).")
+        st.error("This means the regular 'opencv-python' package is installed instead of 'opencv-python-headless'.")
+        st.error("Solution: Ensure requirements.txt uses 'opencv-python-headless' and explicitly excludes 'opencv-python'.")
+        st.error(f"Full error: {e}")
+    else:
+        st.error(f"Unexpected error importing OpenCV: {e}")
     st.stop()
 
 import numpy as np

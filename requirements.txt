@@ -3,6 +3,8 @@
 
 # Core Computer Vision
 # Use opencv-python-headless for server deployments (no GUI dependencies)
+# IMPORTANT: Do NOT install opencv-python (regular version) - it requires GUI libraries
+# If you see libGL.so.1 errors, ensure opencv-python is NOT installed
 opencv-python-headless>=4.8.0,<5.0.0
 numpy>=1.24.0,<2.0.0
 scikit-image>=0.21.0
