@@ -19,10 +19,20 @@ if 'DISPLAY' not in os.environ:
 # Try importing cv2 with better error handling
 try:
     import cv2
-    # Verify it's the headless version by checking if GUI functions are unavailable
-    if hasattr(cv2, 'namedWindow'):
-        # This shouldn't work in headless, but if it does, we're okay
-        pass
+    # Diagnostic: Check OpenCV version and build info
+    cv_version = cv2.__version__
+    # Try to get build info to see if it's headless
+    try:
+        build_info = cv2.getBuildInformation()
+        is_headless = 'GUI' not in build_info or 'NO' in build_info.split('GUI:')[1].split('\n')[0] if 'GUI:' in build_info else True
+    except:
+        is_headless = None
+    
+    # Log diagnostic info (only in debug mode)
+    if os.environ.get('STREAMLIT_DEBUG', ''):
+        st.info(f"OpenCV version: {cv_version}")
+        if is_headless is not None:
+            st.info(f"Headless build: {is_headless}")
 except ImportError as e:
     st.error(f"Failed to import OpenCV: {e}")
     st.error("This usually means opencv-python-headless is not installed correctly.")
